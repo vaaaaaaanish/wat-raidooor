@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WAT-Raidooor</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/MKTxG0mf/favicon-32x32.png">
 </head>
 <body>
     <div class="container">
@@ -107,14 +108,12 @@
         }
 
         function copyText() {
-            const textToCopy = document.getElementById("text-content").innerText;
-            navigator.clipboard.writeText(textToCopy)
-                .then(() => {
-                    document.getElementById("feedback").innerText = "Text copied to clipboard!";
-                })
-                .catch(err => {
-                    document.getElementById("feedback").innerText = "Failed to copy text.";
-                });
+            let text = document.getElementById("text-content").innerText;
+            navigator.clipboard.writeText(text).then(function() {
+                document.getElementById("feedback").innerText = "Text copied!";
+            }, function(err) {
+                console.error("Error copying text: ", err);
+            });
         }
     </script>
 </body>
