@@ -39,9 +39,7 @@
             "🌟 From Matt Furie’s imagination to your portfolio – $WAT is set to make a splash! 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
             "🌟 Get in on the ground floor of the $WAT revolution! Matt Furie’s creation is set to redefine the memecoin space. 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
             "🌊 Wave goodbye to missed opportunities – $WAT is your ticket to the top of the memecoin game! 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
-            "🔥 The $WAT train is leaving the station – don’t be left behind! Matt Furie’s pet rat is ready to lead the charge. 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
-            "🌊 Shoutout to the incredible $WAT community! Matt Furie’s pet rat has the best supporters – together, we'll make history! 🚀🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
-            "🚀 From zero to hero, $WAT is on a mission to the moon! 🌕🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63"
+            "🔥 The $WAT train is leaving the station – don’t be left behind! Matt Furie’s pet rat is ready to lead the charge. 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63"
         ];
 
         let images = [
@@ -92,33 +90,31 @@
                 images = shuffleArray(images);
             }
 
-            let text = texts.find(t => !usedTexts.includes(t));
-            let image = images.find(i => !usedImages.includes(i));
+            let randomTextIndex;
+            do {
+                randomTextIndex = Math.floor(Math.random() * texts.length);
+            } while (usedTexts.includes(randomTextIndex));
 
-            if (text) {
-                document.getElementById("text-content").innerText = text;
-                usedTexts.push(text);
-            }
+            usedTexts.push(randomTextIndex);
+            document.getElementById("text-content").innerHTML = texts[randomTextIndex];
 
-            if (image) {
-                document.getElementById("meme-image").src = image;
-                usedImages.push(image);
-            }
+            let randomImageIndex;
+            do {
+                randomImageIndex = Math.floor(Math.random() * images.length);
+            } while (usedImages.includes(randomImageIndex));
+
+            usedImages.push(randomImageIndex);
+            document.getElementById("meme-image").src = images[randomImageIndex];
         }
 
         function copyText() {
             let text = document.getElementById("text-content").innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                document.getElementById("feedback").innerText = "Text copied to clipboard!";
-            }, () => {
-                document.getElementById("feedback").innerText = "Failed to copy text.";
+            navigator.clipboard.writeText(text).then(function() {
+                document.getElementById("feedback").innerText = "Text copied!";
+            }, function(err) {
+                console.error("Error copying text: ", err);
             });
         }
-
-        // Initial shuffle and setup
-        texts = shuffleArray(texts);
-        images = shuffleArray(images);
-        refreshContent();
     </script>
 </body>
 </html>
