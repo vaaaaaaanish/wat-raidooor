@@ -8,9 +8,16 @@ body {
     background-image: url('https://i.postimg.cc/1XcKZd6n/download.png');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
 }
 
 .container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,7 +61,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
@@ -63,24 +70,6 @@ button:hover {
 
 #feedback {
     margin-top: 10px;
-    font-size: 16px;
-    color: #28a745;
-}
-
-.social-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.social-icon {
-    width: 40px;
-    height: 40px;
-    margin: 0 10px;
-    border-radius: 50%;
-    transition: transform 0.3s;
-}
-
-.social-icon:hover {
-    transform: scale(1.1);
+    font-size: 14px;
+    color: green;
 }
