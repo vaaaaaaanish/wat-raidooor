@@ -89,4 +89,36 @@
 
             if (usedImages.length === images.length) {
                 usedImages = [];
-                images
+                images = shuffleArray(images);
+            }
+
+            let text = texts.find(t => !usedTexts.includes(t));
+            let image = images.find(i => !usedImages.includes(i));
+
+            if (text) {
+                document.getElementById("text-content").innerText = text;
+                usedTexts.push(text);
+            }
+
+            if (image) {
+                document.getElementById("meme-image").src = image;
+                usedImages.push(image);
+            }
+        }
+
+        function copyText() {
+            let text = document.getElementById("text-content").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById("feedback").innerText = "Text copied to clipboard!";
+            }, () => {
+                document.getElementById("feedback").innerText = "Failed to copy text.";
+            });
+        }
+
+        // Initial shuffle and setup
+        texts = shuffleArray(texts);
+        images = shuffleArray(images);
+        refreshContent();
+    </script>
+</body>
+</html>
