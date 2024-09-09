@@ -20,10 +20,7 @@
     </div>
 
     <script>
-        let textIndex = 0;
-        let imageIndex = 0;
-
-        const texts = [
+        let texts = [
             "🐀 Meet WAT, the pet rat of Matt Furie, creator of Pepe! It’s THE memecoin to HODL this bullrun 🚀 #WAT #memecoin #NightRiders #MattFurie",
             "🐀 From Matt Furie’s pet rat to the next big thing in crypto – $WAT is gearing for the new ATH 🚀 #WAT #memecoin #MattFurie",
             "🌊 Memecoin season is coming, and $WAT is at the forefront! Inspired by Matt Furie's pet rat, $WAT is ready to make a splash in the crypto scene. 🐀💪 #WAT #memecoin #MattFurie",
@@ -44,7 +41,7 @@
             "🔥 The $WAT train is leaving the station – don’t be left behind! Matt Furie’s pet rat is ready to lead the charge. 🐀🚀 #WAT #memecoin #MattFurie"
         ];
 
-        const images = [
+        let images = [
             "https://i.postimg.cc/J4SXPYM8/photo-2024-06-18-03-32-44.jpg",
             "https://i.postimg.cc/NjTHV8jH/photo-2024-06-18-03-32-53.jpg",
             "https://i.postimg.cc/tgNVRXPR/photo-2024-07-07-21-35-24.jpg",
@@ -67,14 +64,43 @@
             "https://i.postimg.cc/J4ScsYXN/new6.jpg"
         ];
 
-        function refreshContent() {
-            // Update text
-            document.getElementById("text-content").innerHTML = texts[textIndex];
-            textIndex = (textIndex + 1) % texts.length;
+        let usedTexts = [];
+        let usedImages = [];
 
-            // Update image
-            document.getElementById("meme-image").src = images[imageIndex];
-            imageIndex = (imageIndex + 1) % images.length;
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function refreshContent() {
+            if (usedTexts.length === texts.length) {
+                usedTexts = [];
+                texts = shuffleArray(texts);
+            }
+
+            if (usedImages.length === images.length) {
+                usedImages = [];
+                images = shuffleArray(images);
+            }
+
+            let randomTextIndex;
+            do {
+                randomTextIndex = Math.floor(Math.random() * texts.length);
+            } while (usedTexts.includes(randomTextIndex));
+            
+            usedTexts.push(randomTextIndex);
+            document.getElementById("text-content").innerHTML = texts[randomTextIndex];
+
+            let randomImageIndex;
+            do {
+                randomImageIndex = Math.floor(Math.random() * images.length);
+            } while (usedImages.includes(randomImageIndex));
+
+            usedImages.push(randomImageIndex);
+            document.getElementById("meme-image").src = images[randomImageIndex];
         }
 
         function copyText() {
