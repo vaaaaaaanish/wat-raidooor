@@ -90,7 +90,7 @@
             do {
                 randomTextIndex = Math.floor(Math.random() * texts.length);
             } while (usedTexts.includes(randomTextIndex));
-            
+
             usedTexts.push(randomTextIndex);
             document.getElementById("text-content").innerHTML = texts[randomTextIndex];
 
