@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Refresh with Background</title>
+    <style>
+        body {
+            font-family: 'Arial', 'Helvetica', 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://i.postimg.cc/1XcKZd6n/download.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95); /* Increased opacity for better readability */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-container {
+            width: 100%;
+            max-width: 320px;
+            min-height: 80px;
+            max-height: 200px;
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: #f0f4f8;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            color: #333;
+            font-size: 18px;
+        }
+
+        #meme-image {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border-radius: 10px; /* Added border-radius for rounded corners */
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #feedback {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <div id="text-content">Help us spread the word about WAT!</div>
+        </div>
+        <img id="meme-image" src="https://i.postimg.cc/WbcFZFnp/photo-2024-06-18-03-32-41.jpg" alt="Initial Image">
+        <div>
+            <button onclick="refreshContent()">Refresh Content</button>
+            <button onclick="copyText()">Copy Text</button>
+        </div>
+        <div id="feedback" aria-live="polite"></div>
+    </div>
+
+    <script>
+        const texts = [
+            "🐀 Meet WAT, the pet rat of Matt Furie, creator of Pepe! It’s THE memecoin to HODL this bullrun 🚀 #WAT #memecoin #NightRiders #MattFurie",
+            "🐀 From Matt Furie’s pet rat to the next big thing in crypto – $WAT is gearing for the new ATH 🚀 #WAT #memecoin #MattFurie",
+            "🌊 Memecoin season is coming, and $WAT is at the forefront! Inspired by Matt Furie's pet rat, $WAT is ready to make a splash in the crypto scene. 🐀💪 #WAT #memecoin #MattFurie",
+            "🔥 Active community, big plans, and even bigger potential – $WAT is the THE memecoin this bullrun 🐀🚀 #WAT #memecoin #MattFurie",
+            "🐀  $WAT is small, but the gains will be massive! 📈 #WAT #memecoin #MattFurie",
+            "🚀 $WAT is ready to take off! Fueled by Matt Furie’s creative genius, it is going to make waves in the crypto space 🌊🐀 #WAT #memecoin #MattFurie",
+            "🐾 $WAT is scurrying its way to the top of the memecoin ladder. Don’t be late to the party – Matt Furie’s rat is here to make history! 💥🐀 #WAT #memecoin #MattFurie",
+            "🐾 $WAT is a force to be reckoned with – small but mighty!  💪🐀 #WAT #memecoin #MattFurie",
+            "🌕 Who’s ready for the moon? $WAT holders are! #WAT #memecoin #MattFurie",
+            "🚀 $WAT is your ticket out of the matrix! 🌟🐀 #WAT #memecoin #MattFurie",
+            "🚀 All aboard the $WAT rocket! Matt Furie's pet rat is about to fly to new heights. 🐀💫 #WAT #memecoin #MattFurie",
+            "🐾 Don't sleep on $WAT – the underdog that's ready to dominate the memecoin market! 🐀🔥 #WAT #memecoin #MattFurie",
+            "🚀 When $WAT moves, the whole crypto world watches! Get in early and HODL tight! 🐀📈 #WAT #memecoin #MattFurie",
+            "🐀 $WAT is the underdog set to dominate the memecoin space! Small rat, BIG gains! 🚀 #WAT #memecoin #MattFurie",
+            "🌟 From Matt Furie’s imagination to your portfolio – $WAT is set to make a splash! 🐀🚀 #WAT #memecoin #MattFurie",
+            "🌟 Get in on the ground floor of the $WAT revolution! Matt Furie’s creation is set to redefine the memecoin space. 🐀🚀 #WAT #memecoin #MattFurie",
+            "🌊 Wave goodbye to missed opportunities – $WAT is your ticket to the top of the memecoin game! 🐀🚀 #WAT #memecoin #MattFurie",
+            "🔥 The $WAT train is leaving the station – don’t be left behind! Matt Furie’s pet rat is ready to lead the charge. 🐀🚀 #WAT #memecoin #MattFurie"
+        ];
+
+        const images = [
+            "https://i.postimg.cc/J4SXPYM8/photo-2024-06-18-03-32-44.jpg",
+            "https://i.postimg.cc/NjTHV8jH/photo-2024-06-18-03-32-53.jpg",
+            "https://i.postimg.cc/tgNVRXPR/photo-2024-07-07-21-35-24.jpg",
+            "https://i.postimg.cc/mDZ1t0NY/photo-2024-07-08-00-53-18.jpg",
+            "https://i.postimg.cc/2yVqxht3/photo-2024-07-12-15-53-28.jpg",
+            "https://i.postimg.cc/1X2874xB/photo-2024-07-13-15-54-42.jpg",
+            "https://i.postimg.cc/Y2sLCD4F/photo-2024-07-26-10-41-38.jpg",
+            "https://i.postimg.cc/qM6hhcn5/photo-2024-07-26-10-41-29.jpg",
+            "https://i.postimg.cc/HkGJQJ9s/photo-2024-07-26-10-41-25.jpg",
+            "https://i.postimg.cc/Gmk4zcXP/photo-2024-07-26-10-41-41.jpg",
+            "https://i.postimg.cc/rpjKXfXK/photo-2024-07-28-17-19-05.jpg",
+            "https://i.postimg.cc/sX21V5sK/photo-2024-07-28-17-19-04.jpg",
+            "https://i.postimg.cc/gjXJhdwZ/photo-2024-07-30-10-51-48.jpg",
+            "https://i.postimg.cc/X75q7j6M/photo-2024-07-30-10-51-49-2.jpg"
+        ];
+
+        function refreshContent() {
+            const randomText = texts[Math.floor(Math.random() * texts.length)];
+            document.getElementById("text-content").innerHTML = randomText;
+
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            document.getElementById("meme-image").src = randomImage;
+        }
+
+        function copyText() {
+            const textToCopy = document.getElementById("text-content").innerText;
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    document.getElementById("feedback").innerText = "Text copied to clipboard!";
+                })
+                .catch(err => {
+                    document.getElementById("feedback").innerText = "Failed to copy text.";
+                });
+        }
+    </script>
+</body>
+</html>
