@@ -3,8 +3,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Changed from height to min-height */
     margin: 0;
+    padding: 20px 0; /* Add padding on top and bottom */
     background-image: url('https://i.postimg.cc/1XcKZd6n/download.png');
     background-size: cover;
     background-position: center;
@@ -24,6 +25,7 @@ body {
     justify-content: center;
     z-index: 1;
     position: relative;
+    margin: 20px 0; /* Add margin to ensure there's space at the top and bottom */
 }
 
 .text-container {
@@ -76,9 +78,14 @@ button:hover {
     color: green;
 }
 
-/* Add padding for mobile devices */
+/* For mobile screens */
 @media (max-width: 600px) {
     body {
-        padding: 20px 0; /* Add padding on top and bottom for mobile screens */
+        padding: 20px; /* Add padding on mobile devices */
+    }
+
+    .container {
+        margin-top: 20px; /* Add more space at the top and bottom */
+        margin-bottom: 20px;
     }
 }
