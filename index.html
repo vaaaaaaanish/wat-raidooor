@@ -67,54 +67,28 @@
             "https://i.postimg.cc/J4ScsYXN/new6.jpg",
             "https://i.postimg.cc/mZNFfQ7S/new7.jpg",
             "https://i.postimg.cc/nchryNFH/new8.jpg",
-            "https://i.postimg.cc/4yLf4NfX/new9.jpg"
+            "https://i.postimg.cc/4yLf4NfX/new9.jpg",
+            "https://i.postimg.cc/8CcLks5B/photo-2024-09-10-17-53-39.jpg",
+            "https://i.postimg.cc/Nf86pWST/WAT-THE-CHAD.png",
+            "https://i.postimg.cc/vTFnvzv3/photo-2024-09-10-23-02-32.jpg",
+            "https://i.postimg.cc/25nrZ7Vz/photo-2024-07-12-23-55-44.jpg",
+            "https://i.postimg.cc/TYnzQ3T9/GU9-SUl-W0-AA2u3-P-1.jpg",
+            "https://i.postimg.cc/XvtLT98y/image-1.png",
+            "https://i.postimg.cc/5NPwhw9N/GS67-Wnt-WQAAUppi.jpg"
         ];
 
-        let usedTexts = [];
-        let usedImages = [];
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
         function refreshContent() {
-            if (usedTexts.length === texts.length) {
-                usedTexts = [];
-                texts = shuffleArray(texts);
-            }
-
-            if (usedImages.length === images.length) {
-                usedImages = [];
-                images = shuffleArray(images);
-            }
-
-            let randomTextIndex;
-            do {
-                randomTextIndex = Math.floor(Math.random() * texts.length);
-            } while (usedTexts.includes(randomTextIndex));
-
-            usedTexts.push(randomTextIndex);
-            document.getElementById("text-content").innerHTML = texts[randomTextIndex];
-
-            let randomImageIndex;
-            do {
-                randomImageIndex = Math.floor(Math.random() * images.length);
-            } while (usedImages.includes(randomImageIndex));
-
-            usedImages.push(randomImageIndex);
-            document.getElementById("meme-image").src = images[randomImageIndex];
+            let randomText = texts[Math.floor(Math.random() * texts.length)];
+            let randomImage = images[Math.floor(Math.random() * images.length)];
+            document.getElementById('text-content').textContent = randomText;
+            document.getElementById('meme-image').src = randomImage;
         }
 
         function copyText() {
-            let text = document.getElementById("text-content").innerText;
-            navigator.clipboard.writeText(text).then(function() {
-                document.getElementById("feedback").innerText = "Text copied!";
-            }, function(err) {
-                console.error("Error copying text: ", err);
+            let text = document.getElementById('text-content').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById('feedback').textContent = "Text copied!";
+                setTimeout(() => document.getElementById('feedback').textContent = "", 2000);
             });
         }
     </script>
