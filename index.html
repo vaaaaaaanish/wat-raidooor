@@ -1,71 +1,152 @@
-<script>
-    let images = [
-        "https://i.postimg.cc/J4SXPYM8/photo-2024-06-18-03-32-44.jpg",
-        "https://i.postimg.cc/NjTHV8jH/photo-2024-06-18-03-32-53.jpg",
-        "https://i.postimg.cc/tgNVRXPR/photo-2024-07-07-21-35-24.jpg",
-        "https://i.postimg.cc/mDZ1t0NY/photo-2024-07-08-00-53-18.jpg",
-        "https://i.postimg.cc/2yVqxht3/photo-2024-07-12-15-53-28.jpg",
-        "https://i.postimg.cc/1X2874xB/photo-2024-07-13-15-54-42.jpg",
-        "https://i.postimg.cc/Y2sLCD4F/photo-2024-07-26-10-41-38.jpg",
-        "https://i.postimg.cc/qM6hhcn5/photo-2024-07-26-10-41-29.jpg",
-        "https://i.postimg.cc/HkGJQJ9s/photo-2024-07-26-10-41-25.jpg",
-        "https://i.postimg.cc/Gmk4zcXP/photo-2024-07-26-10-41-41.jpg",
-        "https://i.postimg.cc/rpjKXfXK/photo-2024-07-28-17-19-05.jpg",
-        "https://i.postimg.cc/sX21V5sK/photo-2024-07-28-17-19-04.jpg",
-        "https://i.postimg.cc/gjXJhdwZ/photo-2024-07-30-10-51-48.jpg",
-        "https://i.postimg.cc/X75q7j6M/photo-2024-07-30-10-51-49-2.jpg",
-        "https://i.postimg.cc/3wKSnbxs/new1.jpg",
-        "https://i.postimg.cc/3W59ptqb/new2.jpg",
-        "https://i.postimg.cc/Pr1n79dJ/new3.jpg",
-        "https://i.postimg.cc/LX2GfpSM/photo-2024-07-26-10-42-06.jpg",
-        "https://i.postimg.cc/ydRXVJt1/photo-2024-09-02-10-29-55.jpg",
-        "https://i.postimg.cc/J4ScsYXN/new6.jpg",
-        "https://i.postimg.cc/mZNFfQ7S/new7.jpg",
-        "https://i.postimg.cc/nchryNFH/new8.jpg",
-        "https://i.postimg.cc/4yLf4NfX/new9.jpg",
-        "https://i.postimg.cc/8CcLks5B/photo-2024-09-10-17-53-39.jpg",
-        "https://i.postimg.cc/Nf86pWST/WAT-THE-CHAD.png",
-        "https://i.postimg.cc/vTFnvzv3/photo-2024-09-10-23-02-32.jpg",
-        "https://i.postimg.cc/25nrZ7Vz/photo-2024-07-12-23-55-44.jpg",
-        "https://i.postimg.cc/TYnzQ3T9/GU9-SUl-W0-AA2u3-P-1.jpg",
-        "https://i.postimg.cc/XvtLT98y/image-1.png",
-        "https://i.postimg.cc/5NPwhw9N/GS67-Wnt-WQAAUppi.jpg",
-        // Newly added images
-        "https://i.postimg.cc/W1CyNtRM/12.png",
-        "https://i.postimg.cc/hGm5fggN/1.png",
-        "https://i.postimg.cc/Sspt95xR/4.png",
-        "https://i.postimg.cc/63Lbf080/5.png",
-        "https://i.postimg.cc/qqJbb3nd/6.png",
-        "https://i.postimg.cc/fy8H6RjS/7.png",
-        "https://i.postimg.cc/tRkm1BQR/8.png"
-    ];
-
-    let currentIndex = 0;
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAT-Raidooor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/MKTxG0mf/favicon-32x32.png">
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
         }
-    }
 
-    // Shuffle the images at the beginning
-    shuffleArray(images);
-
-    function refreshContent() {
-        let randomText = texts[Math.floor(Math.random() * texts.length)];
-        let randomImage = images[currentIndex];
-
-        document.getElementById('text-content').textContent = randomText;
-        document.getElementById('meme-image').src = randomImage;
-
-        // Move to the next image
-        currentIndex++;
-
-        // If we've gone through all the images, shuffle and reset
-        if (currentIndex >= images.length) {
-            currentIndex = 0;
-            shuffleArray(images);
+        .text-container {
+            margin: 20px 0;
         }
-    }
-</script>
+
+        #meme-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+        }
+        
+        #text-content {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        #feedback {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <div id="text-content">Help us spread the word about WAT!</div>
+        </div>
+        <img id="meme-image" src="https://i.postimg.cc/J4SXPYM8/photo-2024-06-18-03-32-44.jpg" alt="Initial Image">
+        <div>
+            <button onclick="refreshContent()">Refresh Content</button>
+            <button onclick="copyText()">Copy Text</button>
+        </div>
+        <div id="feedback" aria-live="polite"></div>
+    </div>
+
+    <script>
+        let texts = [
+            "🐀 Meet WAT, the pet rat of Matt Furie, creator of Pepe! It’s THE memecoin to HODL this bullrun 🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐀 From Matt Furie’s pet rat to the next big thing in crypto – $WAT is gearing for the new ATH 🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌊 Memecoin season is coming, and $WAT is at the forefront! Inspired by Matt Furie's pet rat, $WAT is ready to make a splash in the crypto scene. 🐀💪 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🔥 Active community, big plans, and even bigger potential – $WAT is the THE memecoin of this bullrun 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐀  $WAT is small, but the gains will be massive! 📈 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🚀 $WAT is ready to take off! Fueled by Matt Furie’s creative genius, it is going to make waves in the crypto space 🌊🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐾 $WAT is scurrying its way to the top of the memecoin ladder. Don’t be late to the party – Matt Furie’s rat is here to make history! 💥🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐾 $WAT is a force to be reckoned with – small but mighty!  💪🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌕 Who’s ready for the moon? $WAT holders are! #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🚀 $WAT is your ticket out of the matrix! 🌟🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🚀 All aboard the $WAT rocket! Matt Furie's pet rat is about to fly to new heights. 🐀💫 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐾 Don't sleep on $WAT – the underdog that's ready to dominate the memecoin market! 🐀🔥 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🚀 When $WAT moves, the whole crypto world watches! Get in early and HODL tight! 🐀📈 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐀 $WAT is the underdog set to dominate the memecoin space! Small rat, BIG gains! 🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌟 From Matt Furie’s imagination to your portfolio – $WAT is set to make a splash! 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌟 Get in on the ground floor of the $WAT revolution! Matt Furie’s creation is set to redefine the memecoin space. 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌊 Wave goodbye to missed opportunities – $WAT is your ticket to the top of the memecoin game! 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🔥 The $WAT train is leaving the station – don’t be left behind! Matt Furie’s pet rat is ready to lead the charge. 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🌟 Shoutout to the incredible $WAT community! Matt Furie’s pet rat has the best supporters – together, we'll make history! 🚀🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🚀 From zero to hero, $WAT is on a mission to the moon! 🌕🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🔥 Solana’s dog reached millions – now it’s time for Matt Furie’s pet rat $WAT to steal the spotlight! HODL strong! 🐀🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐀 Before $PEPE, there was $WAT – Furie’s original muse! This is the memecoin to watch this bullrun! 🚀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🔥 The $WAT community is like no other – loyal, active, and ready for big gains! 🌟🐀 #WAT #memecoin #MattFurie #nightriders @Wat0x63",
+            "🐀 Meet $WAT – Matt Furie's beloved pet rat and the star of his first book Night Riders! 🌟 #WAT #memecoin #MattFurie #nightriders @Wat0x63"
+        ];
+
+        let images = [
+            "https://i.postimg.cc/J4SXPYM8/photo-2024-06-18-03-32-44.jpg",
+            "https://i.postimg.cc/NjTHV8jH/photo-2024-06-18-03-32-53.jpg",
+            "https://i.postimg.cc/tgNVRXPR/photo-2024-07-07-21-35-24.jpg",
+            "https://i.postimg.cc/mDZ1t0NY/photo-2024-07-08-00-53-18.jpg",
+            "https://i.postimg.cc/2yVqxht3/photo-2024-07-12-15-53-28.jpg",
+            "https://i.postimg.cc/1X2874xB/photo-2024-07-13-15-54-42.jpg",
+            "https://i.postimg.cc/Y2sLCD4F/photo-2024-07-26-10-41-38.jpg",
+            "https://i.postimg.cc/qM6hhcn5/photo-2024-07-26-10-41-29.jpg",
+            "https://i.postimg.cc/HkGJQJ9s/photo-2024-07-26-10-41-25.jpg",
+            "https://i.postimg.cc/Gmk4zcXP/photo-2024-07-26-10-41-41.jpg",
+            "https://i.postimg.cc/rpjKXfXK/photo-2024-07-28-17-19-05.jpg",
+            "https://i.postimg.cc/sX21V5sK/photo-2024-07-28-17-19-04.jpg",
+            "https://i.postimg.cc/gjXJhdwZ/photo-2024-07-30-10-51-48.jpg",
+            "https://i.postimg.cc/X75q7j6M/photo-2024-07-30-10-51-49-2.jpg",
+            "https://i.postimg.cc/3wKSnbxs/new1.jpg",
+            "https://i.postimg.cc/3W59ptqb/new2.jpg",
+            "https://i.postimg.cc/Pr1n79dJ/new3.jpg",
+            "https://i.postimg.cc/LX2GfpSM/photo-2024-07-26-10-42-06.jpg",
+            "https://i.postimg.cc/ydRXVJt1/photo-2024-09-02-10-29-55.jpg",
+            "https://i.postimg.cc/J4ScsYXN/new6.jpg",
+            "https://i.postimg.cc/mZNFfQ7S/new7.jpg",
+            "https://i.postimg.cc/nchryNFH/new8.jpg",
+            "https://i.postimg.cc/4yLf4NfX/new9.jpg",
+            "https://i.postimg.cc/8CcLks5B/photo-2024-09-10-17-53-39.jpg",
+            "https://i.postimg.cc/Nf86pWST/WAT-THE-CHAD.png",
+            "https://i.postimg.cc/vTFnvzv3/photo-2024-09-10-23-02-32.jpg",
+            "https://i.postimg.cc/25nrZ7Vz/photo-2024-07-12-23-55-44.jpg",
+            "https://i.postimg.cc/TYnzQ3T9/GU9-SUl-W0-AA2u3-P-1.jpg",
+            "https://i.postimg.cc/XvtLT98y/image-1.png",
+            "https://i.postimg.cc/5NPwhw9N/GS67-Wnt-WQAAUppi.jpg",
+            "https://i.postimg.cc/W1CyNtRM/12.png",
+            "https://i.postimg.cc/hGm5fggN/1.png",
+            "https://i.postimg.cc/Sspt95xR/4.png",
+            "https://i.postimg.cc/63Lbf080/5.png",
+            "https://i.postimg.cc/qqJbb3nd/6.png",
+            "https://i.postimg.cc/fy8H6RjS/7.png",
+            "https://i.postimg.cc/tRkm1BQR/8.png"
+        ];
+
+        let currentIndex = 0;
+
+        function refreshContent() {
+            const image = document.getElementById('meme-image');
+            const feedback = document.getElementById('feedback');
+
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
+
+            image.src = images[currentIndex];
+            feedback.textContent = texts[Math.floor(Math.random() * texts.length)];
+
+            currentIndex++;
+        }
+
+        function copyText() {
+            const feedback = document.getElementById('feedback');
+            navigator.clipboard.writeText(feedback.textContent).then(() => {
+                alert('Text copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy text: ' + err);
+            });
+        }
+
+        // Initialize the page with content
+        refreshContent();
+    </script>
+</body>
+</html>
